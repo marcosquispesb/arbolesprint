@@ -35,3 +35,6 @@ En algun metodo main agregar algo parecido a lo siguiente
    }
 
 
+
+Para aprender desde cero y de manera didactica el tema de arboles te dejo el sig. curso de árboles del canal MathLogic:
+https://www.youtube.com/playlist?list=PLJeMuvKPxpu2UGbpuFrcEAPCYhZzdCpBk
