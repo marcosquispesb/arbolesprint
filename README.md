@@ -1,9 +1,9 @@
-# Print Jerarquico de Árboles Binarios en Consola
+# Print Jerárquico de Árboles Binarios en Consola
 
 [![d2UNFje.md.png](https://iili.io/d2UNFje.md.png)](https://freeimage.host/i/d2UNFje)
 
-Dejare este pequeño aporte para todos aquellos que estan aprendiendo sobre arboles binarios.  
-Son dos arvhivos que permitiran que puedan imprimir un arbol de forma jerarquica en consola.
+Dejare este pequeño aporte para todos aquellos que estan aprendiendo sobre árboles binarios.  
+Son dos archivos que le permitirán imprimir un árbol de forma jerárquica en consola.
 
 ## Primero
 
@@ -28,11 +28,11 @@ En su clase Node debe considerar lo sig:
 
 1. Adicionar a su proyecto las clases: TBPrint y TBPrintUtil
 2. Arreglar los imports de dependencias en las clases TBPrint y TBPrintUtil
-3. En su clase arbol implementar la interfaz TBPrint, el cual le obligará implementar el metodo getRoot, si ya tiene dicho metodo genial.
+3. En su clase árbol implementar la interfaz TBPrint, el cual le obligará implementar el método getRoot, si ya tiene dicho metodo genial.
 
 ## Tercero
 
-En algun metodo main agregar algo parecido a lo siguiente
+En algun método main agregar algo parecido a lo siguiente:
 ```
    public static void main(String[] args) {
        TreeBinary tb = new TreeBinary(); // clase de su arbol binario
