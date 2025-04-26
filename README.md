@@ -1,4 +1,4 @@
-# Print Jerárquico de Árboles Binarios en Consola
+# Árboles Binarios - Print Jerárquico en Consola
 
 [![d2UNFje.md.png](https://iili.io/d2UNFje.md.png)](https://freeimage.host/i/d2UNFje)
 
