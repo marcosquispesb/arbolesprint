@@ -1,7 +1,6 @@
-package com.bo.ml.tree.treebinary.print;
+package com.bo.ml.tree.nariotree.print;
 
-
-import com.bo.ml.tree.treebinary.Node;
+import com.bo.ml.tree.nariotree.Node;
 
 /**
  * TBPrint

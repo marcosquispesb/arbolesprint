@@ -1,4 +1,4 @@
-package com.bo.ml.tree.treebinary;
+package com.bo.ml.tree.binarytree;
 
 import lombok.Getter;
 import lombok.Setter;

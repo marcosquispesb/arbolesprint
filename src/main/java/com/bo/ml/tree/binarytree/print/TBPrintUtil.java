@@ -1,6 +1,6 @@
-package com.bo.ml.tree.treebinary.print;
+package com.bo.ml.tree.binarytree.print;
 
-import com.bo.ml.tree.treebinary.Node;
+import com.bo.ml.tree.binarytree.Node;
 
 import java.util.*;
 
@@ -42,10 +42,10 @@ public class TBPrintUtil {
     }
 
     private static String printRec(Node node, int level, String[] dataLevels, String[] edgesLevels, Node parent, Map<String, String> childrenMap, Node root) {
-        if (node == null)
+        if (node == null) // CASO BASE
             return "";
 
-        // VALIDATION LOOPS
+        // VALIDATION CICLO INFINITO
         if (node.isViewed()) {
             if (node.equals(root)) {
                 System.err.println("WARN La raiz " + node.getValue() + " esta siendo apuntada por un descendiente");
@@ -58,7 +58,8 @@ public class TBPrintUtil {
         }
 
         node.setViewed(true);
-        if (node.isLeaf())
+
+        if (node.isLeaf()) // CASO BASE
             return "" + node.getValue();
 
         String contentLeft = printRec(node.getLeft(), level + 1, dataLevels, edgesLevels, node, childrenMap, root);
