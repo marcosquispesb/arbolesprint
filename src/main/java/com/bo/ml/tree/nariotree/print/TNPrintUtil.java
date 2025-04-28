@@ -5,24 +5,24 @@ import com.bo.ml.tree.nariotree.Node;
 import java.util.*;
 
 /**
- * TreeBinaryUtil
+ * TreeNarioPrintUtil
  * Canal Youtube: MathLogic - Haciendo Fácil Lo Difícil
  * Curso de Árboles: https://www.youtube.com/playlist?list=PLJeMuvKPxpu2UGbpuFrcEAPCYhZzdCpBk
  *
  * @author Marcos Quispe
  * @since 1.0
  */
-public class TBPrintUtil {
+public class TNPrintUtil {
 
-    public static void print(TBPrint tbPrint) {
-        if (tbPrint.getRoot() == null) {
+    public static void print(TNPrint tnPrint) {
+        if (tnPrint.getRoot() == null) {
             System.out.println("(Arbol vacío)");
             return;
         }
 
-        setViewedFalse(tbPrint.getRoot());
-        int dpt = dpt(tbPrint.getRoot());
-        setViewedFalse(tbPrint.getRoot());
+        setViewedFalse(tnPrint.getRoot());
+        int dpt = dpt(tnPrint.getRoot());
+        setViewedFalse(tnPrint.getRoot());
 
         String[] edgesLevels = new String[dpt];
         String[] dataLevels = new String[dpt];
@@ -30,7 +30,7 @@ public class TBPrintUtil {
         Arrays.fill(dataLevels, "");
 
         Map<String, String> childrenMap = new HashMap<>();
-        String spacesChildren = printRec(tbPrint.getRoot(), 0, dataLevels, edgesLevels, null, childrenMap, tbPrint.getRoot());
+        String spacesChildren = printRec(tnPrint.getRoot(), 0, dataLevels, edgesLevels, null, childrenMap, tnPrint.getRoot());
         dataLevels[0] = spacesChildren;
 
         for (int i = 0; i < dataLevels.length; i++) {
@@ -70,21 +70,23 @@ public class TBPrintUtil {
         String childrenStr = "";
         for (int i = 0; i < node.getChildren().size(); i++) {
             Node child = node.getChildren().get(i);
+            if (child == null)
+                continue;
+
             String contentChild = printRec(child, level + 1, dataLevels, edgesLevels, node, childrenMap, root);
 
-            contentChildren.add(contentChild);
             //System.out.println("node: " + node.getValue() + " ." + contentChild + ".");
-            if (i == 0) {
+            if (contentChildren.isEmpty()) { // first
                 childrenStr = contentChild;
             } else {
                 boolean addSpace = !(contentChildren.get(i - 1).endsWith(" ") || contentChild.startsWith(" "));
                 if (addSpace && !child.isLeaf()) {
                     //System.out.println("yyy: " + (accumulatedSiblings + childrenStr.length() + 1));
-                    //dataLevels[level + 1].length();
                     addOneSpaceGoDown(dataLevels[level + 1].length() + childrenStr.length(), level + 2, dataLevels, edgesLevels, "(child): " + child.getValue());
                 }
                 childrenStr = childrenStr + (addSpace ? " " : "") + contentChild;
             }
+            contentChildren.add(contentChild);
         }
 
         String result = ""+node.getValue();
