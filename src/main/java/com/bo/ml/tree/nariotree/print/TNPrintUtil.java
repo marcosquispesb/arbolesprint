@@ -118,70 +118,12 @@ public class TNPrintUtil {
             result = spacesInitial + spaces(countSpacesInitial) + node.getValue();
             result = result + spaces(childrenStr.length() - result.length());
 
-            int indexStartResult = result.indexOf(result.trim());
-            int indexEndResult = indexStartResult + (""+node.getValue()).length() - 1;
-
             // ARISTAS
             int acumulatedEdges = edgesLevels[level + 1].length();
             edgesLevels[level + 1] += spaces(childrenStr.length());
 
-            List<Integer[]> arrowIndexes = new ArrayList<>(node.getChildren().size());
-            int countWord = 0;
-            for (int i = 0; i < childrenStr.length(); i++) {
-                if (childrenStr.charAt(i) != ' ') {
-                    String word = "";
-                    for (int j = i; j < childrenStr.length(); j++) {
-                        if (childrenStr.charAt(j) != ' ') {
-                            word += childrenStr.charAt(j);
-                        } else
-                            break;
-                    }
-                    countWord++;
+            List<Integer[]> arrowIndexes = getArrowIndexes(node.getChildren().size(), ""+node.getValue(), result, childrenStr);
 
-                    boolean estaEnMedio = false;
-                    if (node.getChildren().size() % 2 == 1 && countWord - 1 == node.getChildren().size() / 2) { // size impar
-                        if (i + word.length() - 1 >= indexStartResult) {
-                            estaEnMedio = true;
-                        }
-                    }
-                    int arrowIndex = i;
-                    char arrow = '|'; // 1
-                    if (i < indexEndResult) {
-                        arrowIndex = (indexEndResult + i) / 2;
-                        if (node.getChildren().size() > 1 && !estaEnMedio)
-                            arrow = '/'; // 0
-                    } else if (i > indexStartResult) {
-                        arrowIndex = (indexStartResult + i + word.length() - 1) / 2;
-                        if (arrowIndex <= arrowIndexes.get(arrowIndexes.size() - 1)[1])
-                            arrowIndex = arrowIndexes.get(arrowIndexes.size() - 1)[1] + 1;
-
-                        if (node.getChildren().size() > 1 && !estaEnMedio)
-                            arrow = '\\'; // 2
-                    }
-
-                    arrowIndexes.add(new Integer[]{i, arrowIndex, (arrow == '/' ? 0 : (arrow == '|' ? 1 : 2))});
-
-                    i += word.length();
-                }
-            }
-
-            if (node.getChildren().size() > 1) {
-                for (int i = 0; i < node.getChildren().size(); i++) {
-                    if (i == 0) { // first
-                        if (arrowIndexes.get(i)[1] + 1 == arrowIndexes.get(i + 1)[1]) { // esta junto al siguiente
-                            if (arrowIndexes.get(i)[1] > arrowIndexes.get(i)[0]) { // posicion valida para poder disminuir
-                                arrowIndexes.get(i)[1] -= 1;
-                            }
-                        }
-                    } else if (i == node.getChildren().size() - 1) { // last
-                        if (arrowIndexes.get(i)[1] - 1 == arrowIndexes.get(i - 1)[1]) { // esta junto al anterior
-                            if (arrowIndexes.get(i)[1] < arrowIndexes.get(i)[0]) { // posicion valida para poder aumentar
-                                arrowIndexes.get(i)[1] += 1;
-                            }
-                        }
-                    }
-                }
-            }
             for (int i = 0; i < arrowIndexes.size(); i++) {
                 int arrowIndex = arrowIndexes.get(i)[1];
                 char arrow = (arrowIndexes.get(i)[2] == 0 ? '/' : (arrowIndexes.get(i)[2] == 1 ? '|' : '\\'));
@@ -208,6 +150,97 @@ public class TNPrintUtil {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static List<Integer[]> getArrowIndexes(int childrenSize, String valueParent, String resultStr, String childrenStr) {
+        int indexStartResult = resultStr.indexOf(resultStr.trim());
+        int indexEndResult = indexStartResult + (""+valueParent).length() - 1;
+
+        //arrowIndexes [0: pos donde inicia el valor, 1: arrowPos, 2: arrow, 3: length]
+        List<Integer[]> arrowIndexes = new ArrayList<>(childrenSize);
+        int countWord = 0;
+        for (int i = 0; i < childrenStr.length(); i++) {
+            if (childrenStr.charAt(i) != ' ') {
+                String word = "";
+                for (int j = i; j < childrenStr.length(); j++) {
+                    if (childrenStr.charAt(j) != ' ') {
+                        word += childrenStr.charAt(j);
+                    } else
+                        break;
+                }
+                countWord++;
+
+                boolean estaEnMedio = false;
+                if (childrenSize % 2 == 1 && countWord - 1 == childrenSize / 2) { // size impar y es elemento del centro
+                    if ((indexStartResult >= i && indexStartResult <= i + word.length() - 1)
+                        || (indexEndResult >= i && indexEndResult <= i + word.length() - 1)) { // posicion hijo coincide con posicion padre
+                        estaEnMedio = true;
+                    }
+                }
+                int arrowIndex = i;
+                char arrow = '|'; // 1
+                if (i < indexEndResult) {
+                    arrowIndex = (indexEndResult + i) / 2;
+                    if (childrenSize > 1 && !estaEnMedio)
+                        arrow = '/'; // 0
+                } else if (i > indexStartResult) {
+                    arrowIndex = (indexStartResult + i + word.length() - 1) / 2;
+                    if (arrowIndex <= arrowIndexes.get(arrowIndexes.size() - 1)[1])
+                        arrowIndex = arrowIndexes.get(arrowIndexes.size() - 1)[1] + 1;
+
+                    if (childrenSize > 1 && !estaEnMedio)
+                        arrow = '\\'; // 2
+                }
+                if (arrow == '|') { // ajuste para que | corresponda a la posicion del padre
+                    if (arrowIndex < indexStartResult) {
+                        //System.out.println("ajuste |   child: " + word);
+                        arrowIndex = indexStartResult;
+                    } else if (arrowIndex > indexEndResult) {
+                        //System.out.println("ajuste |   child: " + word);
+                        arrowIndex = indexEndResult;
+                    }
+                }
+
+                arrowIndexes.add(new Integer[]{i, arrowIndex, (arrow == '/' ? 0 : (arrow == '|' ? 1 : 2)), word.length()});
+
+                i += word.length();
+            }
+        }
+
+        if (childrenSize  == 2 || childrenSize == 3) {
+            for (int i = 0; i < childrenSize; i++) {
+                if (i == 0) { // first
+                    if (arrowIndexes.get(i)[1] + 1 == arrowIndexes.get(i + 1)[1]) { // esta junto al siguiente
+                        if (arrowIndexes.get(i)[1] > arrowIndexes.get(i)[0]) { // posicion valida para poder disminuir
+                            arrowIndexes.get(i)[1] -= 1;
+                        }
+                    }
+                } else if (i == childrenSize - 1) { // last
+                    if (arrowIndexes.get(i)[1] - 1 == arrowIndexes.get(i - 1)[1]) { // esta junto al anterior
+                        if (arrowIndexes.get(i)[1] < arrowIndexes.get(i)[0]) { // posicion valida para poder aumentar
+                            arrowIndexes.get(i)[1] += 1;
+                        }
+                    }
+                }
+            }
+        } else if (childrenSize > 3) { // de 4 elementos en adelante
+            int l = (childrenSize / 2) - 1;
+            int r = childrenSize / 2;
+            if (childrenSize % 2 == 1) { // size impar
+                l = (childrenSize / 2) - 1;
+                r = (childrenSize / 2) + 1;
+            }
+            while (l > -1) {
+                arrowIndexes.get(l)[1] = arrowIndexes.get(l)[0];
+                arrowIndexes.get(r)[1] = arrowIndexes.get(r)[0];
+                int dif = arrowIndexes.get(l + 1)[1] - arrowIndexes.get(l)[1];
+                if (dif > 3)
+                    arrowIndexes.get(l)[1] = arrowIndexes.get(l)[1] + 1;
+                l--;
+                r++;
+            }
+        }
+        return arrowIndexes;
     }
 
     /**

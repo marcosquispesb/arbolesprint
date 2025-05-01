@@ -88,8 +88,8 @@ public class NarioTree implements TNPrint {
         t.putChildren(2, 3, 1, 5);
 
 //        t = new NarioTree(1);
-//        t.putChildren(1, 30, 20, 10, 40, 50, 60); // mejorar impresion consola
-//        //t.putChildren(1, 70, 30, 20, 10, 40, 50, 60); // mejorar impresion consola
+//        t.putChildren(1, 30, 20, 10, 40, 50, 60);
+//        //t.putChildren(1, 70, 30, 20, 10, 40, 50, 60);
 //        t.putChildren(10, 12);
 //        t.putChildren(30, 15, 11);
 //        t.putChildren(11, 2);
