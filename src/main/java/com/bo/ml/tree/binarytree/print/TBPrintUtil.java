@@ -10,7 +10,7 @@ import java.util.*;
  * Curso de Árboles: https://www.youtube.com/playlist?list=PLJeMuvKPxpu2UGbpuFrcEAPCYhZzdCpBk
  *
  * @author Marcos Quispe
- * @since 1.0
+ * @version v1.0
  */
 public class TBPrintUtil {
 
