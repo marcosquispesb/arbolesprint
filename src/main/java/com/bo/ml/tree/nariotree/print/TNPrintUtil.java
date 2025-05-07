@@ -80,7 +80,7 @@ public class TNPrintUtil {
                 childrenStr = contentChild;
             } else {
                 boolean addSpace = !(contentChildren.get(i - 1).endsWith(" ") || contentChild.startsWith(" "));
-                if (addSpace && !child.isLeaf()) {
+                if (addSpace) {
                     //System.out.println("yyy: " + (accumulatedSiblings + childrenStr.length() + 1));
                     addOneSpaceGoDown(dataLevels[level + 1].length() + childrenStr.length(), level + 2, dataLevels, edgesLevels, "(child): " + child.getValue());
                 }
