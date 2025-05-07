@@ -64,8 +64,8 @@ En su clase Node debe considerar lo sig:
     }
 ```
 3. Debe tener las siguientes funciones:  
-   getValue, getId, isViewed, setViewed  
-   isLeaf, getChildren (copiar de clase Node de este proyecto)
+   getValue, getId, isViewed, setViewed, getChildren 
+   isLeaf (copiar de clase Node de este proyecto)
 
 ## Segundo
 
