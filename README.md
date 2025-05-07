@@ -41,7 +41,7 @@ En algun método main agregar algo parecido a lo siguiente:
    }
 ```
 
-# Árboles N-ários - Print Jerárquico en Consola
+# Árboles N-arios - Print Jerárquico en Consola
 
 [![3ef6Sxj.md.png](https://iili.io/3ef6Sxj.md.png)](https://freeimage.host/i/3ef6Sxj)
 
