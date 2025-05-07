@@ -3,7 +3,7 @@
 [![d2UNFje.md.png](https://iili.io/d2UNFje.md.png)](https://freeimage.host/i/d2UNFje)
 
 Dejare este pequeño aporte para todos aquellos que estan aprendiendo sobre árboles binarios.  
-Son dos archivos que le permitirán imprimir un árbol de forma jerárquica en consola.
+Son dos archivos que le permitirán imprimir un árbol binario de forma jerárquica en consola.
 
 ## Primero
 
@@ -35,7 +35,7 @@ En su clase Node debe considerar lo sig:
 En algun método main agregar algo parecido a lo siguiente:
 ```
    public static void main(String[] args) {
-       TreeBinary tb = new TreeBinary(); // clase de su arbol binario
+       TreeBinary tb = new TreeBinary(); // clase de su árbol binario
        //... llamar a algun metodo que cargue datos
        TBPrintUtil.print(tb); // el print acepta cualquier clase que implemente la interfaz TBPrint
    }
@@ -46,7 +46,7 @@ En algun método main agregar algo parecido a lo siguiente:
 [![3ef6Sxj.md.png](https://iili.io/3ef6Sxj.md.png)](https://freeimage.host/i/3ef6Sxj)
 
 Dejare este pequeño aporte para todos aquellos que estan aprendiendo sobre árboles n-arios.  
-Son dos archivos que le permitirán imprimir un árbol de forma jerárquica en consola.
+Son dos archivos que le permitirán imprimir un árbol n-ario de forma jerárquica en consola.
 
 ## Primero
 
@@ -78,9 +78,9 @@ En su clase Node debe considerar lo sig:
 En algun método main agregar algo parecido a lo siguiente:
 ```
    public static void main(String[] args) {
-       TreeBinary tb = new TreeBinary(); // clase de su arbol binario
+       NarioTree t = new NarioTree(); // clase de su árbol n-ario
        //... llamar a algun metodo que cargue datos
-       TBPrintUtil.print(tb); // el print acepta cualquier clase que implemente la interfaz TBPrint
+       TNPrintUtil.print(t); // el print acepta cualquier clase que implemente la interfaz TNPrint
    }
 ```
 
