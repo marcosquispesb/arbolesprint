@@ -10,6 +10,8 @@ import java.util.UUID;
 
 /**
  * Node
+ * Canal Youtube: MathLogic - Haciendo Fácil Lo Difícil
+ * Curso de Árboles: https://www.youtube.com/playlist?list=PLJeMuvKPxpu2UGbpuFrcEAPCYhZzdCpBk
  *
  * @author Marcos Quispe
  * @since 1.0
