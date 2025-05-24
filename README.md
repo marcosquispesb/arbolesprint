@@ -29,6 +29,7 @@ En su clase Node debe considerar lo sig:
 1. Adicionar a su proyecto las clases: TBPrint y TBPrintUtil
 2. Arreglar los imports de dependencias en las clases TBPrint y TBPrintUtil
 3. En su clase árbol implementar la interfaz TBPrint, el cual le obligará implementar el método getRoot, si ya tiene dicho método ya no se lo pedirá.
+
    [![3DB4NYQ.md.png](https://iili.io/3DB4NYQ.md.png)](https://freeimage.host/i/3DB4NYQ)
 
 ## Tercero
@@ -73,6 +74,7 @@ En su clase Node debe considerar lo sig:
 1. Adicionar a su proyecto las clases: TNPrint y TNPrintUtil
 2. Arreglar los imports de dependencias en las clases TNPrint y TNPrintUtil
 3. En su clase árbol n-ario implementar la interfaz TNPrint, el cual le obligará implementar el método getRoot, si ya tiene dicho método ya no se lo pedirá.
+
    [![3DB4vTP.md.png](https://iili.io/3DB4vTP.md.png)](https://freeimage.host/i/3DB4vTP)
 
 ## Tercero
