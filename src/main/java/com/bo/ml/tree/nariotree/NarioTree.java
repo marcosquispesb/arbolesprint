@@ -16,7 +16,6 @@ import lombok.Setter;
 public class NarioTree implements TNPrint {
 
     @Getter
-    @Setter
     private Node root;
 
     @Getter
