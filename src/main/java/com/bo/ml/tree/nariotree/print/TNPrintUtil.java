@@ -73,10 +73,12 @@ public class TNPrintUtil {
             if (child == null)
                 continue;
 
+            // llamada recursiva por cada hijo
             String contentChild = printRec(child, level + 1, dataLevels, edgesLevels, node, childrenMap, root);
 
             //System.out.println("node: " + node.getValue() + " ." + contentChild + ".");
             if (contentChildren.isEmpty()) { // first
+                //System.out.println("node: " + node.getValue() + "  contentChildren empty");
                 childrenStr = contentChild;
             } else {
                 boolean addSpace = !(contentChildren.get(i - 1).endsWith(" ") || contentChild.startsWith(" "));
@@ -91,12 +93,18 @@ public class TNPrintUtil {
 
         String result = ""+node.getValue();
         try {
-            //System.out.println("childrenStr:" + childrenStr);
+            // REVISANDO SI ENTRE dataLevels[level + 1] y childrenStr NO hay ESPACIO para adicionarle
+            if (!dataLevels[level + 1].isEmpty()) {
+                boolean addSpace = !dataLevels[level + 1].endsWith(" ") && !childrenStr.startsWith(" ");
+                if (addSpace) {
+                    //System.out.println("yyy: " + (accumulatedSiblings + childrenStr.length() + 1));
+                    addOneSpaceGoDown(dataLevels[level + 1].length(), level + 2, dataLevels, edgesLevels, "" + childrenStr);
+                }
+                childrenStr = (addSpace ? " " : "") + childrenStr;
+            }
             dataLevels[level + 1] += childrenStr;
             childrenMap.put(node.getId(), childrenStr);
-
-            result = spaces(childrenStr.length() / 2) + node.getValue();
-            result = result + spaces(childrenStr.length() - result.length());
+            //System.out.println("childrenStr:" + childrenStr);
 
             // reajuste result solo si hijos son dos o mas elementos, para que dicho valor quede lo mejor centrado posible
             int index2 = childrenStr.indexOf(childrenStr.trim());
@@ -141,11 +149,6 @@ public class TNPrintUtil {
                     edgesLevels[i] += spaces(dif);
                 }
             }
-
-//        if (childrenUniqueValueLeft) {
-//            System.out.println("result:" + result);
-//            System.out.println();
-//        }
         } catch (Exception e) {
             e.printStackTrace();
         }

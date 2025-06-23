@@ -95,15 +95,15 @@ public class NarioTree implements TNPrint {
     }
 
     public static void main(String[] args) {
-        NarioTree t = new NarioTree(1);
-        t.putChildren(1, 10, 20, 30);
-        t.putChildren(10, 12);
-        t.putChildren(30, 11, 18);
+        NarioTree t = new NarioTree();
+
+//        t = new NarioTree(1);
+//        t.putChildren(1, 10, 20, 30);
+//        t.putChildren(10, 12);
+//        t.putChildren(30, 11, 18);
 
         // En el método main llamar al print, enviar el root
         //t.print(t.getRoot());
-
-//        NarioTree t = new NarioTree();
 
 //        t = new NarioTree(1); // arbol ok
 //        t.putChildren(1, 10, 20, 30);
@@ -131,6 +131,11 @@ public class NarioTree implements TNPrint {
 //        t.putChildren(30, 15, 11);
 //        t.putChildren(11, 2);
 //        t.putChildren(2, 3, 31, 5);
+
+        t = new NarioTree(40);
+        t.putChildren(40, 30, 10, 20); // arbol ok
+        t.putChildren(10, 12, 14);
+        t.putChildren(30, 15, 11);
 
         TNPrintUtil.print(t);
     }
