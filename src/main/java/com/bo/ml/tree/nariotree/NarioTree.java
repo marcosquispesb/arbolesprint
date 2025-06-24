@@ -97,10 +97,11 @@ public class NarioTree implements TNPrint {
     public static void main(String[] args) {
         NarioTree t = new NarioTree();
 
-//        t = new NarioTree(1);
-//        t.putChildren(1, 10, 20, 30);
-//        t.putChildren(10, 12);
-//        t.putChildren(30, 11, 18);
+        t = new NarioTree(1);
+        t.putChildren(1, 10, 20, 30);
+        t.putChildren(10, 12);
+        t.putChildren(30, 11, 18);
+        TNPrintUtil.print(t);
 
         // En el método main llamar al print, enviar el root
         //t.print(t.getRoot());
@@ -109,6 +110,7 @@ public class NarioTree implements TNPrint {
 //        t.putChildren(1, 10, 20, 30);
 //        t.putChildren(10, 11, 14, 17);
 //        t.putChildren(30, 33, 39);
+//        TNPrintUtil.print(t);
 
 //        t = new NarioTree(1); // arbol ok
 //        t.putChildren(1, 10, 20, 30);
@@ -116,6 +118,7 @@ public class NarioTree implements TNPrint {
 //        t.putChildren(30, 11, 18);
 //        t.putChildren(12, 3, 7);
 //        t.putChildren(18, 4);
+//        TNPrintUtil.print(t);
 
 //        t = new NarioTree(40);
 //        t.putChildren(40, 30, 10, 20); // arbol ok
@@ -123,6 +126,7 @@ public class NarioTree implements TNPrint {
 //        t.putChildren(30, 15, 11);
 //        t.putChildren(11, 2);
 //        t.putChildren(2, 3, 1, 5);
+//        TNPrintUtil.print(t);
 
 //        t = new NarioTree(1);
 //        t.putChildren(1, 30, 20, 10, 40, 50, 60);
@@ -131,12 +135,12 @@ public class NarioTree implements TNPrint {
 //        t.putChildren(30, 15, 11);
 //        t.putChildren(11, 2);
 //        t.putChildren(2, 3, 31, 5);
+//        TNPrintUtil.print(t);
 
-        t = new NarioTree(40);
-        t.putChildren(40, 30, 10, 20); // arbol ok
-        t.putChildren(10, 12, 14);
-        t.putChildren(30, 15, 11);
-
-        TNPrintUtil.print(t);
+//        t = new NarioTree(40);
+//        t.putChildren(40, 30, 10, 20); // arbol ok
+//        t.putChildren(10, 12, 14);
+//        t.putChildren(30, 15, 11);
+//        TNPrintUtil.print(t);
     }
 }
