@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Node {
 
     private char value;
-    private boolean checked;
+    private boolean endWord;
     private Node[] children;
 
     private String id; // solo para el print del docente
@@ -27,6 +27,13 @@ public class Node {
 
     public Node(char value) {
         this.value = value;
+        children = new Node[26];
+        this.id = UUID.randomUUID().toString(); // agregar esta linea
+    }
+
+    public Node(char value, boolean endWord) {
+        this.value = value;
+        this.endWord = endWord;
         children = new Node[26];
         this.id = UUID.randomUUID().toString(); // agregar esta linea
     }

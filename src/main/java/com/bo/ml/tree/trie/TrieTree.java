@@ -44,17 +44,22 @@ public class TrieTree implements TTPrint {
 
         Node node = t.getRoot();
         node.getChildren()['D' - 'A'] = new Node('D');
-        node.getChildren()['A' - 'A'] = new Node('A');
-        node.getChildren()['A' - 'A'].setChecked(true);
+        node.getChildren()['A' - 'A'] = new Node('A', true);
 
         node = node.getChildren()['D' - 'A'];
-        node.getChildren()['E' - 'A'] = new Node('E');
-        node.getChildren()['E' - 'A'].setChecked(true);
+        node.getChildren()['E' - 'A'] = new Node('E', true);
 
         node = node.getChildren()['E' - 'A'];
         node.getChildren()['D' - 'A'] = new Node('D');
         node.getChildren()['B' - 'A'] = new Node('B');
 
+        Node nodeDE = node;
+        node = nodeDE.getChildren()['D' - 'A'];
+        node.getChildren()['O' - 'A'] = new Node('O', true);
+
+        node = nodeDE.getChildren()['B' - 'A'];
+        node.getChildren()['E' - 'A'] = new Node('E');
+        node.getChildren()['E' - 'A'].getChildren()['R' - 'A'] = new Node('R', true);
         return t;
     }
 
