@@ -68,6 +68,7 @@ public class TNPrintUtil {
 
         List<String> contentChildren = new ArrayList<>(node.getChildren().size());
         String childrenStr = "";
+        int aux = 0;
         for (int i = 0; i < node.getChildren().size(); i++) {
             Node child = node.getChildren().get(i);
             if (child == null)
@@ -81,7 +82,7 @@ public class TNPrintUtil {
                 //System.out.println("node: " + node.getValue() + "  contentChildren empty");
                 childrenStr = contentChild;
             } else {
-                boolean addSpace = !(contentChildren.get(i - 1).endsWith(" ") || contentChild.startsWith(" "));
+                boolean addSpace = !(contentChildren.get(aux - 1).endsWith(" ") || contentChild.startsWith(" "));
                 if (addSpace) {
                     //System.out.println("yyy: " + (accumulatedSiblings + childrenStr.length() + 1));
                     addOneSpaceGoDown(dataLevels[level + 1].length() + childrenStr.length(), level + 2, dataLevels, edgesLevels, "(child): " + child.getValue());
@@ -89,6 +90,7 @@ public class TNPrintUtil {
                 childrenStr = childrenStr + (addSpace ? " " : "") + contentChild;
             }
             contentChildren.add(contentChild);
+            aux++;
         }
 
         String result = ""+node.getValue();
@@ -331,8 +333,10 @@ public class TNPrintUtil {
 
             List<Node> children = node.getChildren();
             for (Node child : children) {
-                if (!visited.contains(child.getId()))
-                    queue.add(child);
+                if (child != null) {
+                    if (!visited.contains(child.getId()))
+                        queue.add(child);
+                }
             }
         } while (!queue.isEmpty());
     }
