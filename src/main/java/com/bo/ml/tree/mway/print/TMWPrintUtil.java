@@ -45,6 +45,11 @@ public class TMWPrintUtil {
         if (node == null) // CASO BASE
             return "";
 
+        if (node.getId() == null) {
+            System.err.println("El nodo con valores " + node.getValueToPrint() + " tiene id null. Revisar que se esta generando el id en los constructores del nodo");
+            return "";
+        }
+
         // VALIDATION CICLO INFINITO
         if (node.isViewed()) {
             if (node.equals(root)) {

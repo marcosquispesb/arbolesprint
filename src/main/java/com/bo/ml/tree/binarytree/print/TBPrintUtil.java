@@ -45,6 +45,11 @@ public class TBPrintUtil {
         if (node == null) // CASO BASE
             return "";
 
+        if (node.getId() == null) {
+            System.err.println("El nodo con valor " + node.getValue() + " tiene id null. Revisar que se esta generando el id en los constructores del nodo");
+            return "";
+        }
+
         // VALIDATION CICLO INFINITO
         if (node.isViewed()) {
             if (node.equals(root)) {
