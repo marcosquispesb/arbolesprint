@@ -1,6 +1,6 @@
 package com.bo.ml.tree.nariotree.print;
 
-import com.bo.ml.tree.nariotree.Node;
+import java.util.List;
 
 /**
  * TreeNarioPrint
@@ -10,8 +10,16 @@ import com.bo.ml.tree.nariotree.Node;
  * @author Marcos Quispe
  * @since 1.0
  */
-public interface TNPrint {
+public interface INode {
 
-    Node getRoot();
+    String getId();
 
+    void setViewed(boolean viewed);
+    boolean isViewed();
+
+    String getValueToPrint();
+
+    List<? extends INode> getChildrenToPrint();
+
+    boolean isLeaf();
 }

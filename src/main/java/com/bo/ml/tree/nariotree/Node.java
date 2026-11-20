@@ -1,5 +1,6 @@
 package com.bo.ml.tree.nariotree;
 
+import com.bo.ml.tree.nariotree.print.INode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Node {
+public class Node implements INode {
     private String id; // solo para el print del docente
     private boolean viewed; // solo para el print del docente
 
@@ -32,6 +33,16 @@ public class Node {
 
         this.value = value;
         children = new ArrayList<>(0);
+    }
+
+    @Override
+    public String getValueToPrint() {
+        return ""+value;
+    }
+
+    @Override
+    public List<? extends INode> getChildrenToPrint() {
+        return children;
     }
 
     public boolean isLeaf() {

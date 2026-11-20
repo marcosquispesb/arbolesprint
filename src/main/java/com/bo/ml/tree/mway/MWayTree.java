@@ -1,10 +1,9 @@
 package com.bo.ml.tree.mway;
 
-import com.bo.ml.tree.mway.print.TMWPrint;
-import com.bo.ml.tree.mway.print.TMWPrintUtil;
+import com.bo.ml.tree.nariotree.print.TNPrintUtil;
 import lombok.Getter;
 
-public class MWayTree implements TMWPrint {
+public class MWayTree {
 
     private int m;
 
@@ -57,6 +56,6 @@ public class MWayTree implements TMWPrint {
 
     public static void main(String[] args) {
         MWayTree t = createTreeMVDefault();
-        TMWPrintUtil.print(t);
+        TNPrintUtil.print(t.root);
     }
 }

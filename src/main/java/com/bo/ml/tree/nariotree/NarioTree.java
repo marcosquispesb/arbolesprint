@@ -1,9 +1,7 @@
 package com.bo.ml.tree.nariotree;
 
-import com.bo.ml.tree.nariotree.print.TNPrint;
 import com.bo.ml.tree.nariotree.print.TNPrintUtil;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * NarioTree
@@ -13,7 +11,7 @@ import lombok.Setter;
  * @author Marcos Quispe
  * @since 1.0
  */
-public class NarioTree implements TNPrint {
+public class NarioTree {
 
     @Getter
     private Node root;
@@ -101,7 +99,8 @@ public class NarioTree implements TNPrint {
         t.putChildren(1, 10, 20, 30);
         t.putChildren(10, 12);
         t.putChildren(30, 11, 18);
-        TNPrintUtil.print(t);
+
+        TNPrintUtil.print(t.root);
 
         // En el método main llamar al print, enviar el root
         //t.print(t.getRoot());

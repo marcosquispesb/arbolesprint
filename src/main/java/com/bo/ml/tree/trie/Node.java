@@ -1,10 +1,12 @@
 package com.bo.ml.tree.trie;
 
+import com.bo.ml.tree.nariotree.print.INode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Node {
+public class Node implements INode {
 
     private char value;
     private boolean endWord;
@@ -38,12 +40,18 @@ public class Node {
         this.id = UUID.randomUUID().toString(); // agregar esta linea
     }
 
-    public boolean isLeaf() {
-        return Arrays.stream(children).allMatch(x -> x == null);
+    @Override
+    public String getValueToPrint() {
+        return ""+value;
     }
 
-    public int getChildrenLenght() {
-        return (int) Arrays.stream(children).filter(x -> x != null).count();
+    @Override
+    public List<? extends INode> getChildrenToPrint() {
+        return Arrays.stream(children).filter(x -> x != null).toList();
+    }
+
+    public boolean isLeaf() {
+        return Arrays.stream(children).allMatch(x -> x == null);
     }
 
     @Override

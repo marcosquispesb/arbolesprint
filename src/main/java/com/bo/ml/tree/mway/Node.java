@@ -1,15 +1,17 @@
 package com.bo.ml.tree.mway;
 
+import com.bo.ml.tree.nariotree.print.INode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @ToString
-public class Node {
+public class Node implements INode {
 
     @Getter
     private Integer[] values;
@@ -62,14 +64,6 @@ public class Node {
         return true;
     }
 
-    public boolean isLeaf() {
-        return Arrays.stream(children).allMatch(x -> x == null);
-    }
-
-    public int getChildrenLenght() {
-        return (int) Arrays.stream(children).filter(x -> x != null).count();
-    }
-
     public String getValueToPrint() {
         String result = children[0] != null ? "‖" : "|";
         for (int i = 0; i < values.length; i++) {
@@ -77,6 +71,15 @@ public class Node {
                     + (children[i + 1] != null ? "‖" : "|");
         }
         return result;
+    }
+
+    @Override
+    public List<? extends INode> getChildrenToPrint() {
+        return Arrays.stream(children).filter(x -> x != null).toList();
+    }
+
+    public boolean isLeaf() {
+        return Arrays.stream(children).allMatch(x -> x == null);
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,5 @@
 package com.bo.ml.tree.nariotree.print;
 
-import com.bo.ml.tree.nariotree.Node;
-
 import java.util.*;
 
 /**
@@ -14,15 +12,15 @@ import java.util.*;
  */
 public class TNPrintUtil {
 
-    public static void print(TNPrint tnPrint) {
-        if (tnPrint.getRoot() == null) {
+    public static void print(INode iRoot) {
+        if (iRoot == null) {
             System.out.println("(Arbol vacío)");
             return;
         }
 
-        setViewedFalse(tnPrint.getRoot());
-        int dpt = dpt(tnPrint.getRoot());
-        setViewedFalse(tnPrint.getRoot());
+        setViewedFalse(iRoot);
+        int dpt = dpt(iRoot);
+        setViewedFalse(iRoot);
 
         String[] edgesLevels = new String[dpt];
         String[] dataLevels = new String[dpt];
@@ -30,7 +28,7 @@ public class TNPrintUtil {
         Arrays.fill(dataLevels, "");
 
         Map<String, String> childrenMap = new HashMap<>();
-        String spacesChildren = printRec(tnPrint.getRoot(), 0, dataLevels, edgesLevels, null, childrenMap, tnPrint.getRoot());
+        String spacesChildren = printRec(iRoot, 0, dataLevels, edgesLevels, null, childrenMap, iRoot);
         dataLevels[0] = spacesChildren;
 
         for (int i = 0; i < dataLevels.length; i++) {
@@ -41,23 +39,23 @@ public class TNPrintUtil {
         }
     }
 
-    private static String printRec(Node node, int level, String[] dataLevels, String[] edgesLevels, Node parent, Map<String, String> childrenMap, Node root) {
+    private static String printRec(INode node, int level, String[] dataLevels, String[] edgesLevels, INode parent, Map<String, String> childrenMap, INode root) {
         if (node == null) // CASO BASE
             return "";
 
         if (node.getId() == null) {
-            System.err.println("El nodo con valor " + node.getValue() + " tiene id null. Revisar que se esta generando el id en los constructores del nodo");
+            System.err.println("El nodo con valor " + node.getValueToPrint() + " tiene id null. Revisar que se esta generando el id en los constructores del nodo");
             return "";
         }
 
         // VALIDATION CICLO INFINITO
         if (node.isViewed()) {
             if (node.equals(root)) {
-                System.err.println("WARN La raiz " + node.getValue() + " esta siendo apuntada por un descendiente");
-                System.err.println("WARN Cayo en un bucle infinito, revise los punteros de: " + parent.getValue());
+                System.err.println("WARN La raiz " + node.getValueToPrint() + " esta siendo apuntada por un descendiente");
+                System.err.println("WARN Cayo en un bucle infinito, revise los punteros de: " + parent.getValueToPrint());
             } else {
-                System.err.println("WARN El nodo " + node.getValue() + " tiene varios nodos que lo apuntan");
-                System.err.println("WARN Podria caer en un bucle infinito, revise los punteros de: " + parent.getValue());
+                System.err.println("WARN El nodo " + node.getValueToPrint() + " tiene varios nodos que lo apuntan");
+                System.err.println("WARN Podria caer en un bucle infinito, revise los punteros de: " + parent.getValueToPrint());
             }
             return "";
         }
@@ -65,32 +63,33 @@ public class TNPrintUtil {
         node.setViewed(true);
 
         if (node.isLeaf()) { // CASO BASE
-            childrenMap.put(node.getId(), "" + node.getValue());
+            childrenMap.put(node.getId(), "" + node.getValueToPrint());
             if (level + 1 < dataLevels.length)
-                addSpacesGoDown("" + node.getValue(), level + 1, dataLevels, edgesLevels, "");
-            return "" + node.getValue();
+                addSpacesGoDown("" + node.getValueToPrint(), level + 1, dataLevels, edgesLevels, "");
+            return "" + node.getValueToPrint();
         }
 
-        List<String> contentChildren = new ArrayList<>(node.getChildren().size());
+        List<? extends INode> children = node.getChildrenToPrint();
+        List<String> contentChildren = new ArrayList<>(children.size());
         String childrenStr = "";
         int aux = 0;
-        for (int i = 0; i < node.getChildren().size(); i++) {
-            Node child = node.getChildren().get(i);
+        for (int i = 0; i < children.size(); i++) {
+            INode child = children.get(i);
             if (child == null)
                 continue;
 
             // llamada recursiva por cada hijo
             String contentChild = printRec(child, level + 1, dataLevels, edgesLevels, node, childrenMap, root);
 
-            //System.out.println("node: " + node.getValue() + " ." + contentChild + ".");
+            //System.out.println("node: " + node.getValueStr() + " ." + contentChild + ".");
             if (contentChildren.isEmpty()) { // first
-                //System.out.println("node: " + node.getValue() + "  contentChildren empty");
+                //System.out.println("node: " + node.getValueStr() + "  contentChildren empty");
                 childrenStr = contentChild;
             } else {
                 boolean addSpace = !(contentChildren.get(aux - 1).endsWith(" ") || contentChild.startsWith(" "));
                 if (addSpace) {
                     //System.out.println("yyy: " + (accumulatedSiblings + childrenStr.length() + 1));
-                    addOneSpaceGoDown(dataLevels[level + 1].length() + childrenStr.length(), level + 2, dataLevels, edgesLevels, "(child): " + child.getValue());
+                    addOneSpaceGoDown(dataLevels[level + 1].length() + childrenStr.length(), level + 2, dataLevels, edgesLevels, "(child): " + child.getValueToPrint());
                 }
                 childrenStr = childrenStr + (addSpace ? " " : "") + contentChild;
             }
@@ -98,7 +97,7 @@ public class TNPrintUtil {
             aux++;
         }
 
-        String result = ""+node.getValue();
+        String result = ""+node.getValueToPrint();
         try {
             // REVISANDO SI ENTRE dataLevels[level + 1] y childrenStr NO hay ESPACIO para adicionarle
             if (!dataLevels[level + 1].isEmpty()) {
@@ -118,26 +117,26 @@ public class TNPrintUtil {
             String spacesInitial = childrenStr.substring(0, index2);
 
             int countSpacesInitial = 0;
-            if (childrenStr.trim().length() % 2 == 0 && ("" + node.getValue()).length() % 2 == 0) { // ambos pares
-                countSpacesInitial = (childrenStr.trim().length() - ("" + node.getValue()).length()) / 2;
+            if (childrenStr.trim().length() % 2 == 0 && ("" + node.getValueToPrint()).length() % 2 == 0) { // ambos pares
+                countSpacesInitial = (childrenStr.trim().length() - ("" + node.getValueToPrint()).length()) / 2;
 
-            } else if (childrenStr.trim().length() % 2 == 1 && ("" + node.getValue()).length() % 2 == 1) { // ambos impares
-                countSpacesInitial = (childrenStr.trim().length() - ("" + node.getValue()).length()) / 2;
+            } else if (childrenStr.trim().length() % 2 == 1 && ("" + node.getValueToPrint()).length() % 2 == 1) { // ambos impares
+                countSpacesInitial = (childrenStr.trim().length() - ("" + node.getValueToPrint()).length()) / 2;
 
-            } else if (childrenStr.trim().length() % 2 == 1 && ("" + node.getValue()).length() % 2 == 0) { // hijos impar, padre par
-                countSpacesInitial = (childrenStr.trim().length() + 1 - ("" + node.getValue()).length()) / 2;
+            } else if (childrenStr.trim().length() % 2 == 1 && ("" + node.getValueToPrint()).length() % 2 == 0) { // hijos impar, padre par
+                countSpacesInitial = (childrenStr.trim().length() + 1 - ("" + node.getValueToPrint()).length()) / 2;
 
-            } else if (childrenStr.trim().length() % 2 == 0 && ("" + node.getValue()).length() % 2 == 1) { // hijos par, padre impar
-                countSpacesInitial = (childrenStr.trim().length() + 1 - ("" + node.getValue()).length()) / 2;
+            } else if (childrenStr.trim().length() % 2 == 0 && ("" + node.getValueToPrint()).length() % 2 == 1) { // hijos par, padre impar
+                countSpacesInitial = (childrenStr.trim().length() + 1 - ("" + node.getValueToPrint()).length()) / 2;
             }
-            result = spacesInitial + spaces(countSpacesInitial) + node.getValue();
+            result = spacesInitial + spaces(countSpacesInitial) + node.getValueToPrint();
             result = result + spaces(childrenStr.length() - result.length());
 
             // ARISTAS
             int acumulatedEdges = edgesLevels[level + 1].length();
             edgesLevels[level + 1] += spaces(childrenStr.length());
 
-            List<Integer[]> arrowIndexes = getArrowIndexes(node.getChildren().size(), ""+node.getValue(), result, childrenStr);
+            List<Integer[]> arrowIndexes = getArrowIndexes(node.getChildrenToPrint().size(), ""+node.getValueToPrint(), result, childrenStr);
 
             for (int i = 0; i < arrowIndexes.size(); i++) {
                 int arrowIndex = arrowIndexes.get(i)[1];
@@ -322,22 +321,22 @@ public class TNPrintUtil {
         return result;
     }
 
-    public static void setViewedFalse(Node root) {
+    public static void setViewedFalse(INode root) {
         if (root == null)
             return;
 
         List<String> visited = new ArrayList<>();
-        Queue<Node> queue = new LinkedList<>();
+        Queue<INode> queue = new LinkedList<>();
         queue.add(root);
 
-        Node node;
+        INode node;
         do {
             node = queue.poll(); // sacar
             node.setViewed(false);
             visited.add(node.getId());
 
-            List<Node> children = node.getChildren();
-            for (Node child : children) {
+            List<? extends INode> children = node.getChildrenToPrint();
+            for (INode child : children) {
                 if (child != null) {
                     if (!visited.contains(child.getId()))
                         queue.add(child);
@@ -346,7 +345,7 @@ public class TNPrintUtil {
         } while (!queue.isEmpty());
     }
 
-    public static int dpt(Node node) {
+    public static int dpt(INode node) {
         if (node == null)
             return 0;
 
@@ -359,7 +358,7 @@ public class TNPrintUtil {
         node.setViewed(true);
 
         int maxDepth = 0;
-        for (Node child : node.getChildren()) {
+        for (INode child : node.getChildrenToPrint()) {
             maxDepth = Math.max(maxDepth, dpt(child));
         }
 

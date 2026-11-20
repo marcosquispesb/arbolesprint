@@ -1,7 +1,6 @@
 package com.bo.ml.tree.trie;
 
-import com.bo.ml.tree.trie.print.TTPrint;
-import com.bo.ml.tree.trie.print.TTPrintUtil;
+import com.bo.ml.tree.nariotree.print.TNPrintUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
  * @author Marcos Quispe
  * @since 1.0
  */
-public class TrieTree implements TTPrint {
+public class TrieTree {
 
     @Getter
     @Setter
@@ -65,7 +64,8 @@ public class TrieTree implements TTPrint {
 
     public static void main(String[] args) {
         TrieTree t = createTrieDefault();
-        TTPrintUtil.print(t);
+
+        TNPrintUtil.print(t.root);
         System.out.println();
         //System.out.println((int)'A');
 //        System.out.println('D' - 'A');
