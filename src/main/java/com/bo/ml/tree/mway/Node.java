@@ -1,13 +1,12 @@
 package com.bo.ml.tree.mway;
 
-import com.bo.ml.tree.nariotree.print.INode;
+import com.bo.ml.tree.print.nario.INode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @ToString

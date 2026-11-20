@@ -1,4 +1,4 @@
-package com.bo.ml.tree.nariotree.print;
+package com.bo.ml.tree.print.nario;
 
 import java.util.List;
 

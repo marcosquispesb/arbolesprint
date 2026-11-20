@@ -1,4 +1,4 @@
-package com.bo.ml.tree.binarytree.print;
+package com.bo.ml.tree.print.binary;
 
 
 import com.bo.ml.tree.binarytree.Node;

@@ -1,6 +1,6 @@
 package com.bo.ml.tree.nariotree;
 
-import com.bo.ml.tree.nariotree.print.INode;
+import com.bo.ml.tree.print.nario.INode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

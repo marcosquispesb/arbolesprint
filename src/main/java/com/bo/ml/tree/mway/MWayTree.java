@@ -1,6 +1,6 @@
 package com.bo.ml.tree.mway;
 
-import com.bo.ml.tree.nariotree.print.TNPrintUtil;
+import com.bo.ml.tree.print.nario.TNPrintUtil;
 import lombok.Getter;
 
 public class MWayTree {

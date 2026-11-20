@@ -1,7 +1,7 @@
 package com.bo.ml.tree.binarytree;
 
-import com.bo.ml.tree.binarytree.print.TBPrint;
-import com.bo.ml.tree.binarytree.print.TBPrintUtil;
+import com.bo.ml.tree.print.binary.TBPrint;
+import com.bo.ml.tree.print.binary.TBPrintUtil;
 import lombok.Getter;
 
 /**
